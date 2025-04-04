@@ -1,5 +1,8 @@
+import streamlit as st
+import openai
+
 # Maak een OpenAI client aan met je API key
-client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+client = openai.Client(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.set_page_config(page_title="LLM Live Demo", layout="centered")
 
