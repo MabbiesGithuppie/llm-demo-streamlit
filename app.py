@@ -2,12 +2,13 @@ import streamlit as st
 import openai
 import os
 
+# Maak een OpenAI client aan met je API key
+client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
 st.set_page_config(page_title="LLM Live Demo", layout="centered")
 
 st.title("🤖 LLM Live Demo")
 st.write("Voer een prompt in en kies een schrijfstijl.")
-
-openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 prompt = st.text_area("✍️ Prompt:", height=150)
 
@@ -30,15 +31,5 @@ if st.button("✨ Genereer Tekst"):
     else:
         with st.spinner("Even denken..."):
             try:
-                response = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
-                    messages=[
-                        {"role": "user", "content": format_prompt(prompt, style)}
-                    ],
-                    max_tokens=400,
-                    temperature=0.7
-                )
-                st.success("Klaar!")
-                st.markdown(response.choices[0].message.content)
-            except Exception as e:
-                st.error(f"Er ging iets mis: {e}")
+                response = client.chat.completions.create(
+                    model="gpt-3.5-turbo
