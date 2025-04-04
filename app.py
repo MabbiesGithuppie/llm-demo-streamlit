@@ -1,7 +1,3 @@
-import streamlit as st
-import openai
-import os
-
 # Maak een OpenAI client aan met je API key
 client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
@@ -33,9 +29,13 @@ if st.button("✨ Genereer Tekst"):
             try:
                 response = client.chat.completions.create(
                     model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "user", "content": format_prompt(prompt, style)}
-                ],
-    max_tokens=400,
-    temperature=0.7
-)
+                    messages=[
+                        {"role": "user", "content": format_prompt(prompt, style)}
+                    ],
+                    max_tokens=400,
+                    temperature=0.7
+                )
+                st.success("Klaar!")
+                st.markdown(response.choices[0].message.content)
+            except Exception as e:
+                st.error(f"Er ging iets mis: {e}")
