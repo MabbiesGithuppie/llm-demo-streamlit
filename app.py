@@ -32,4 +32,10 @@ if st.button("✨ Genereer Tekst"):
         with st.spinner("Even denken..."):
             try:
                 response = client.chat.completions.create(
-                    model="gpt-3.5-turbo
+                    model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "user", "content": format_prompt(prompt, style)}
+                ],
+    max_tokens=400,
+    temperature=0.7
+)
